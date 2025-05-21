@@ -9,6 +9,7 @@ from datetime import datetime
 from typing import List, Dict, Tuple, Optional, Any
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import os
 
 import subprocess
 app = Flask(__name__)
@@ -605,4 +606,5 @@ def fetch_events():
         return jsonify({'error': 'Failed to fetch events'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 10000))  # Render provides the port via an environment variable
+    app.run(host='0.0.0.0', port=port, debug=True)
